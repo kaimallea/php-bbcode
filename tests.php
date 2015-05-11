@@ -15,6 +15,8 @@ $text=<<<EOF
 
 [h6]This is  heading elements h1 [/h6]
 
+[b]This is bold text[/b]
+
 [i]This is italic text[/i]
 
 [code]This is pre-formatted text[/code]
