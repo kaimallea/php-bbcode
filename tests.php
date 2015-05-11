@@ -3,7 +3,17 @@ require "bbcode.php";
 
 $text=<<<EOF
 
-[b]This is bold text[/b]
+[h1]This is  heading elements h1 [/h1]
+
+[h2]This is  heading elements h1 [/h2]
+
+[h3]This is  heading elements h1 [/h3]
+
+[h4]This is  heading elements h1 [/h4]
+
+[h5]This is  heading elements h1 [/h5]
+
+[h6]This is  heading elements h1 [/h6]
 
 [i]This is italic text[/i]
 
