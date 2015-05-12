@@ -19,7 +19,7 @@ class BBCode {
     // Replace [h4]...[/h4] with <h4>...</h4>
     // Replace [h5]...[/h5] with <h5>...</h5>
     // Replace [h6]...[/h6] with <h6>...</h6>
-    $this->bbcode_table["/\[h(1|2|3|4|5|6)\](.*?)\[\/h(1|2|3|4|5|6)\]/is"] = function ($match) {
+    $this->bbcode_table["/\[h([1-6])\](.*?)\[\/h[1-6]\]/is"] = function ($match) {
         return "<h$match[1]>$match[2]</h$match[1]>";
     };
 
