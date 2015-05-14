@@ -1,0 +1,11 @@
+{
+  "name": "louelkadi/php-bbcode",
+  "description": "Parse your BBCode easy with this library.",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "zaid louelkadi",
+      "email": "louelkadiacd@gmail.com"
+    }
+  ]
+}

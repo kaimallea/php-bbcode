@@ -12,7 +12,19 @@ class BBCode {
   protected $bbcode_table = array();
   
   public function __construct () {
-    
+
+    // Replace [h1]...[/h1] with <h1>...</h1>
+    // Replace [h2]...[/h2] with <h2>...</h2>
+    // Replace [h3]...[/h3] with <h3>...</h3>
+    // Replace [h4]...[/h4] with <h4>...</h4>
+    // Replace [h5]...[/h5] with <h5>...</h5>
+    // Replace [h6]...[/h6] with <h6>...</h6>
+    $this->bbcode_table["/\[h([1-6])\](.*?)\[\/h[1-6]\]/is"] = function ($match) {
+        return "<h$match[1]>$match[2]</h$match[1]>";
+    };
+
+
+
     // Replace [b]...[/b] with <strong>...</strong>
     $this->bbcode_table["/\[b\](.*?)\[\/b\]/is"] = function ($match) {
       return "<strong>$match[1]</strong>";
