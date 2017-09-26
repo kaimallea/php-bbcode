@@ -1,139 +1,73 @@
-## Instructions
 
-1. Include `bbcode.php`
-2. Instantiate the `BBCode` class
-3. Execute the `toHTML` method on a string which contains BBCode (optionally pass `true` as the second argument to escape special html chars first)
-4. Enjoy HTML output
+# BBCode
 
-## Example Code
+A library that parses BBCode and converts it to HTML code. Written in PHP.
+
+## Installation
+
+Through Composer:
+
+```
+composer require chriskonnertz/bbcode
+```
+
+From then on you may run `composer update` to get the latest version of this library.
+
+It is possible to use this library without using Composer but then it is necessary to register an 
+[autoloader function](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation).
+
+> This library requires PHP 5.5 or higher.
+
+## Usage example
+
+Here is a minimalistic example of PHP code that uses this library. It assumes that there is an autoloader.
 
 ```php
-<?php
-require "bbcode.php";
+$bbcode = new ChrisKonnertz\BBCode\BBCode();
 
-$text=<<<EOF
+$rendered = $bbcode->render('[b]Hello world![/b]');
 
-[b]This is bold text[/b]
-
-[i]This is italic text[/i]
-
-[code]This is pre-formatted text[/code]
-
-[quote]This is a quote[/quote]
-
-[quote="Obama"]This is a quote by a specific person[/quote]
-
-[size=30]This text's size is set at 30%[/size]
-
-[s]This text has a strikethrough[/s]
-
-[u]This text is underlined.[/u]
-
-[center]This text is centered[/center]
-
-[color=red]This is red text[/color]
-
-[email]someone@somewhere.com[/email]
-
-[email=someone@somewhere.com]An e-mail link[/email]
-
-[url]http://www.google.com/[/url]
-
-[url=http://www.google.com/]Google.com yo![/url]
-
-[img]http://i.imgur.com/WqYEO.jpg[/img]
-
-An image as a link:
-
-[url=http://en.wikipedia.org/wiki/Ninja][img]http://i.imgur.com/8d7Yu.jpg[/img][/url]
-
-This is an unordered list: 
-
-[list]
-[*]list item #1
-[*]list item #2
-[*][b]bold list item #3[/b]
-[/list]
-
-This is an ordered (numbered) list: 
-
-[list=1]
-[*]list item #1
-[*]list item #2
-[*][b]bold list item #3[/b]
-[/list]
-
-This is an ordered (alpha) list: 
-
-[list=a]
-[*]list item #1
-[*]list item #2
-[*][b]bold list item #3[/b]
-[/list]
-
-[youtube]http://youtu.be/DabwEqsWWiA&hd=1[/youtube]
-
-[youtube]http://www.youtube.com/watch?v=DabwEqsWWiA[/youtube]
-
-
-EOF;
-
-$bbcode = new BBCode;
-echo $bbcode->toHTML($text);  
-?>
+echo $rendered;
 ```
 
-## Example Output
+## Available tags
 
-```html
+* `[b]`: Font style bold
+* `[i]`: Font style italic
+* `[s]`: Font style struck through
+* `[u]`: Font style underlined
+* `[code]`: Code
+* `[email]`: Email (clickable)
+* `[url]`: URL (clickable)
+* `[img]`: Image (not clickable)
+* `[*]`: List item
+* `[li]`: List item
+* `[quote]`: Quote
+* `[youtube]`: Embedded YouTube video
+* `[font]`: Font (name)
+* `[size]`: Font size
+* `[color]`: Font color
+* `[left]`: Text-align: left
+* `[center]`: Text-align: center
+* `[right]`: Text-align: right
+* `[spoiler]`: Spoiler (just HTML code that needs JavaScript code to add behaviour)
 
-<strong>This is bold text</strong>
+You can add custom tags with the `addTag($name, Closure $closure)` method.
 
-<em>This is italic text</em>
+## Helpful methods
 
-<pre><code>This is pre-formatted text</code><pre>
+* `renderRaw($text = null)`: Renders only the text without any tags
+* `addTag($name, Closure $closure)`: Adds a custom tag (with name and a Closure)
+* `forgetTag($name)`: Remove the tag with the given name
+* `ignoreTag($name)`: Add a tag to the array of ignored tags
+* `permitTag($name)`: Remove a tag from the array of ignored tags
 
-<blockquote><p>This is a quote</p></blockquote>
+The `BBCode` class also implements the `__toString()` method, which internally calls the `render()` method.
 
-Obama wrote: <blockquote><p>This is a quote by a specific person</p></blockquote>
+## Fork
 
-<span style="font-size:30%">This text's size is set at 30%</span>
+This repository originally has been forked from [kaimallea/php-bbcode](https://github.com/kaimallea/php-bbcode). However, it has been completely rewritten since then.
 
-<del>This text has a strikethrough</del>
+## Status
 
-<span style="text-decoration:underline;">This text is underlined.</span>
-
-<div style="text-align:center;">This text is centered</div>
-
-<span style="color:red;">This is red text</span>
-
-<a href="mailto:someone@somewhere.com">someone@somewhere.com</a>
-
-<a href="mailto:someone@somewhere.com">An e-mail link</a>
-
-<a href="http://www.google.com/">http://www.google.com/</a>
-
-<a href="http://www.google.com/">Google.com yo!</a>
-
-<img src="http://i.imgur.com/WqYEO.jpg"/>
-
-An image as a link:
-
-<a href="http://en.wikipedia.org/wiki/Ninja"><img src="http://i.imgur.com/8d7Yu.jpg"/></a>
-
-This is an unordered list: 
-
-<ul><li>list item #1</li><li>list item #2</li><li><strong>bold list item #3</strong></li></ul>
-
-This is an ordered (numbered) list: 
-
-<ol><li>list item #1</li><li>list item #2</li><li><strong>bold list item #3</strong></li></ol>
-
-This is an ordered (alpha) list: 
-
-<ol style="list-style-type: lower-alpha"><li>list item #1</li><li>list item #2</li><li><strong>bold list item #3</strong></li></ol>
-
-<iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/DabwEqsWWiA" frameborder="0"></iframe>
-
-<iframe class="youtube-player" type="text/html" width="640" height="385" src="http://www.youtube.com/embed/DabwEqsWWiA" frameborder="0"></iframe>
-```
+Status of this repository: **Maintained**. Create an issue and you will get a response, usually within 48 hours.
