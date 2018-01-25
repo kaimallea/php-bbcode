@@ -1,0 +1,27 @@
+{
+    "name": "chriskonnertz/bbcode",
+    "description": "A naive attempt at a BBCode 'parser' written in PHP. It uses regex and thus fails at complex, nested tags.",
+    "keywords": ["bbcode"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Konnertz"
+        },
+        {
+            "name": "Kai Mallea",
+            "email": "kmallea@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4"
+    },
+    "autoload": {
+        "psr-0": {
+            "ChrisKonnertz\\BBCode": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
